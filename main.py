@@ -9,7 +9,7 @@ IDFile=sys.argv[1]
 parser=parseIDs(IDFile)
 IDList=parser.parse()
 
-idType=sys.argv[2]
+idType=sys.argv[2].lower()
 
 def makeRequest():
 	sciDir=requestSciDir(sys.argv[3], x)
@@ -53,14 +53,6 @@ elif idType=='doi':
 			queue.append(time.time())
 			makeRequest()
 	print 'Runtime: '+str(time.time()-timer)
-#		  sciDir=requestSciDir(sys.argv[3], x)
-#		  sciDir.requestDOI() #Request the article from science direct
-#		  if sciDir.r.status_code == requests.codes.ok:   #only write to file if our request is handled well
-#			   sciDir.write()
-#		elif sciDir.r.status_code !=requests.codes.ok:
-#			spring=requestSpringer(x)
-#			spring.request()
-#			spring.write()
-#		  
+
 else:
 	print "Please enter a valid ID Type"
