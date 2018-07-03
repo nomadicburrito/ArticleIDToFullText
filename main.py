@@ -13,13 +13,17 @@ idType=sys.argv[2].lower()
 
 def makeRequest():
 	sciDir=requestSciDir(sys.argv[3], x)
+	print x
 	sciDir.requestDOI() #Request the article from science direct
+	print 'SciDir status: '+str(sciDir.r.status_code)
 	if sciDir.r.status_code == requests.codes.ok:   #only write to file if our request is handled well
 		sciDir.write()
 	elif sciDir.r.status_code !=requests.codes.ok:
 		spring=requestSpringer(x)
 		spring.request()
-		spring.write()
+		print 'Springer Status: '+str(spring.r.status_code)
+		if spring.r.status_code == requests.codes.ok:
+			spring.write()
 
 if idType=='pmid':
 	for x in IDList:
